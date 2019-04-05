@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+ 
+    </style>
+<body>
+<p>Name Player1:</p><input id="O"type="text" value="O"><br><p>Name Player2:</p><input id="X" type="text" value="X"><br><br>
+<input type="button" value="  " onclick="mark(1);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin">
+<input type="button" value="  " onclick="mark(2);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin">
+<input type="button" value="  " onclick="mark(3);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin"><br>
+<input type="button" value="  " onclick="mark(4);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin">
+<input type="button" value="  " onclick="mark(5);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin">
+<input type="button" value="  " onclick="mark(6);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin"><br>
+<input type="button" value="  " onclick="mark(7);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin">
+<input type="button" value="  " onclick="mark(8);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin">
+<input type="button" value="  " onclick="mark(9);this.value=who" style="padding:50px;font-size:2em;background-color:white;margin">
+<p>&emsp;</p>
+<input type="button" onclick="botR()" value="bot with random decisions (Still glitchy)">
+<script>
+    var who= "O";
+    var fblock=false
+    var blockBot= false;
+    var board = [" "," "," "," "," "," "," "," "," "];
+    var taken=[0,0,0,0,0,0,0,0,0]
+    console.log(board[0]+"|"+board[1]+"|"+board[2]+"|"+"\n"+board[3]+"|"+board[4]+"|"+board[5]+"|"+"\n"+board[6]+"|"+board[7]+"|"+board[8]+"|")
+    function mark(number){
+        if(taken[number-1]){
+            alert("you can't do that");
+        }else{
+          if(!blockBot){
+             if(fblock){ turn();}
+              else{fblock=true;}
+        }else{ 
+            botROne();
+        }
+        taken[number-1]=1;
+        board[number-1]=who;
+        console.log(board[0]+"|"+board[1]+"|"+board[2]+"|"+"\n"+board[3]+"|"+board[4]+"|"+board[5]+"|"+"\n"+board[6]+"|"+board[7]+"|"+board[8]+"|");
+        checkWin();
+        }
+        
+    }
+    function turn(){
+        if(who == "X") who = "O";
+        else who = "X";
+    }
+    
+
+    function checkWin(){
+        if((board[0]==board[1]&&board[1]==board[2]&&board[0]!=" ")||(board[3]==board[4]&&board[4]==board[5]&&board[4]!=" ")||(board[6]==board[7]&&board[7]==board[8]&&board[8]!=" ")||(board[0]==board[3]&&board[3]==board[6]&&board[0]!=" ")||(board[1]==board[4]&&board[4]==board[7]&&board[4]!=" ")||(board[2]==board[5]&&board[5]==board[8]&&board[8]!=" ")||(board[0]==board[4]&&board[4]==board[8]&&board[0]!=" ")||(board[2]==board[4]&&board[4]==board[6]&&board[4]!=" ")){
+            if(who == "O"){
+                document.write('"'+document.getElementById("O").value+'"'+" won");
+                blockBot=false;
+            }else{
+                document.write('"'+document.getElementById("X").value+'"'+" won");
+                blockBot=false;
+            }
+        }else if(board[0]!=" "&& board[1]!=" "&& board[2]!=" "&& board[3]!=" "&& board[4]!=" "&& board[5]!=" "&&board[6]!=" "&&board[7]!=" "&&board[8]!=" "){
+            document.write("Nobody won")
+        }
+    }
+       function checkWinBot(){
+        if((board[0]==board[1]&&board[1]==board[2]&&board[0]!=" ")||(board[3]==board[4]&&board[4]==board[5]&&board[4]!=" ")||
+           (board[6]==board[7]&&board[7]==board[8]&&board[8]!=" ")||(board[0]==board[3]&&board[3]==board[6]&&board[0]!=" ")||
+           (board[1]==board[4]&&board[4]==board[7]&&board[4]!=" ")||(board[2]==board[5]&&board[5]==board[8]&&board[8]!=" ")||
+           (board[0]==board[4]&&board[4]==board[8]&&board[0]!=" ")||(board[2]==board[4]&&board[4]==board[6]&&board[4]!=" ")){
+            
+            
+            
+            
+          if((board[0]==board[1]&&board[1]==board[2]&&board[0]=="X")||(board[3]==board[4]&&board[4]==board[5]&&board[4]=="X")||(board[6]==board[7]&&board[7]==board[8]&&board[8]=="X")||(board[0]==board[3]&&board[3]==board[6]&&board[0]=="X")||(board[1]==board[4]&&board[4]==board[7]&&board[4]=="X")||(board[2]==board[5]&&board[5]==board[8]&&board[8]=="X")||
+          (board[0]==board[4]&&board[4]==board[8]&&board[0]=="X")||(board[2]==board[4]&&board[4]==board[6]&&board[4]=="X")){
+            
+                                      document.write("The Bot won")
+              
+        }else if(board[0]!=" "&& board[1]!=" "&& board[2]!=" "&& board[3]!=" "&& board[4]!=" "&& board[5]!=" "&&board[6]!=" "&&board[7]!=" "&&board[8]!=" "){
+            document.write("Nobody won")
+        }}
+    }
+function botR(){
+    blockBot=true;
+    document.getElementById("X").value="BOT";
+    document.getElementById("X").disabled=true;
+
+}
+    function botROne(){
+   for(;;){
+        var numero = Math.floor(Math.random()*9);
+       if(taken[numero]){
+           continue;
+       }else{
+           board[numero]="X";
+           taken[numero]=1;
+           document.getElementsByTagName("input")[2+numero].value="X";
+           checkWinBot();
+           console.log(board[0]+"|"+board[1]+"|"+board[2]+"|"+"\n"+board[3]+"|"+board[4]+"|"+board[5]+"|"+"\n"+board[6]+"|"+board[7]+"|"+board[8]+"|");
+           break
+       }}
+}
+    
+    
+    </script>    
+</body>
+</html>
